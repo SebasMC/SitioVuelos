@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+
+
+    </h:head>
+    <h:body>
+        <ui:composition template="/template/template_vuelos1.1.xhtml">
+            <ui:define name="top">
+                <ui:include src="/template/header.xhtml"/>
+            </ui:define>
+            <ui:define name="content">
+                <div align="center">
+                    <div  style="background: white; border:none ; width: 300px; height: 400px;">
+                        <h1 style="color:  #154360; font-family: sans-serif; font-size: 20px;">Inicio de sesión de usuarios</h1>
+                        <h:form>
+                            <h:panelGrid columns="2" cellspacing="5px">
+                                <p style="font-size: 20px;">Usuario:</p>
+                                <h:inputText style="height: 20px; "/>
+                              <p style="font-size: 20px;">Contraseña:</p>
+                                <h:inputText style="height: 20px;"/>
+                            </h:panelGrid>
+                            <h:panelGroup>
+                            <h:commandButton style="background-color: #154360; color: white; border: white solid; width: 300px; height: 40px;" value="Iniciar"/>
+                            <h:commandButton style="background-color: #154360; color: white; border: white solid; width: 300px; height: 40px;" value="Cancelar."/>
+                            <h3>Aun no tienes usuario?</h3>
+                            <h:commandLink value="Registrarse" action="index_registro.xhtml"/>
+                            </h:panelGroup>
+                        </h:form>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
