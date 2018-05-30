@@ -34,10 +34,7 @@ public class ClientesFacade {
 
     }
 
-    public void registra(Clientes cliente) {
-
-            jpa.getEntityManager().persist(cliente);
-
-        
+    public void registrar(Clientes cliente) throws Exception {
+            jpa.create(cliente);
     }
 }

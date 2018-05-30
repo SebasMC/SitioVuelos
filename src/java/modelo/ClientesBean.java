@@ -150,7 +150,7 @@ public class ClientesBean {
         return null;
     }
 
-    public void insertar() {
+    public void insertar() throws Exception {
         boolean band1;
         cliente = new Clientes();
 
@@ -163,7 +163,7 @@ public class ClientesBean {
         cliente.setEmail(email);
         cliente.setPassword(password);
 
-        cfacade.registra(cliente);
+        cfacade.registrar(cliente);
 
 
     }
