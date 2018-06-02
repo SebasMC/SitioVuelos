@@ -30,7 +30,6 @@ public class ClientesFacade {
     private ClientesJpaController jpa = new ClientesJpaController(utx, emf);
 
     public ClientesFacade() {
-
     }
 
     public void registrar(Clientes cliente) throws Exception {
