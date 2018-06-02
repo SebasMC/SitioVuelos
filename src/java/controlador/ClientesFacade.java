@@ -8,18 +8,17 @@ package controlador;
 import entidad.Clientes;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
+import javax.naming.InitialContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
-import javax.validation.ConstraintViolationException;
+import org.jboss.weld.bean.builtin.ee.UserTransactionBean;
 
 /**
  *
- * @author sebas
+ * @author sebas0
  */
 @Stateless
 public class ClientesFacade {
@@ -35,6 +34,7 @@ public class ClientesFacade {
     }
 
     public void registrar(Clientes cliente) throws Exception {
-            jpa.create(cliente);
+        jpa.create(cliente);
     }
+
 }

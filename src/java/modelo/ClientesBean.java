@@ -7,14 +7,14 @@ package modelo;
 
 import controlador.ClientesFacade;
 import entidad.Clientes;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.inject.Named;
+import javax.enterprise.context.RequestScoped;
 
 /**
  *
  * @author sebas
  */
-@ManagedBean(name = "clientes")
+@Named(value = "clientes")
 @RequestScoped
 public class ClientesBean {
 
@@ -22,8 +22,9 @@ public class ClientesBean {
     private String nombre;
     private String apellido_paterno;
     private String apellido_materno;
-    private int edad;
-    private String ciudad;
+    private String tel;
+    private Integer edad;
+    private Character genero;
     private String email;
     private String password;
     private Clientes cliente;
@@ -31,6 +32,20 @@ public class ClientesBean {
     private boolean band;
 
     public ClientesBean() {
+    }
+
+    /**
+     * @return the idcliente
+     */
+    public Integer getIdcliente() {
+        return idcliente;
+    }
+
+    /**
+     * @param idcliente the idcliente to set
+     */
+    public void setIdcliente(Integer idcliente) {
+        this.idcliente = idcliente;
     }
 
     /**
@@ -76,31 +91,45 @@ public class ClientesBean {
     }
 
     /**
+     * @return the tel
+     */
+    public String getTel() {
+        return tel;
+    }
+
+    /**
+     * @param tel the tel to set
+     */
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    /**
      * @return the edad
      */
-    public int getEdad() {
+    public Integer getEdad() {
         return edad;
     }
 
     /**
      * @param edad the edad to set
      */
-    public void setEdad(int edad) {
+    public void setEdad(Integer edad) {
         this.edad = edad;
     }
 
     /**
-     * @return the ciudad
+     * @return the genero
      */
-    public String getCiudad() {
-        return ciudad;
+    public Character getGenero() {
+        return genero;
     }
 
     /**
-     * @param ciudad the ciudad to set
+     * @param genero the genero to set
      */
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
+    public void setGenero(Character genero) {
+        this.genero = genero;
     }
 
     /**
@@ -131,34 +160,17 @@ public class ClientesBean {
         this.password = password;
     }
 
-    /**
-     * @return the cfacade
-     */
-    public ClientesFacade getCfacade() {
-        return cfacade;
-    }
-
-    /**
-     * @param cfacade the cfacade to set
-     */
-    public void setCfacade(ClientesFacade cfacade) {
-        this.cfacade = cfacade;
-    }
-
-    public String busca(String email, String password) {
-        return null;
-    }
-
     public String insertar() throws Exception {
 
         cliente = new Clientes();
 
-        cliente.setIdcliente(idcliente += 1);
+        cliente.setIdcliente(this.idcliente += 1);
         cliente.setNombre(nombre);
         cliente.setApellidoPaterno(apellido_paterno);
         cliente.setApellidoMaterno(apellido_materno);
+        cliente.setTel(tel);
         cliente.setEdad(edad);
-        cliente.setCiudad(ciudad);
+        cliente.setGenero(genero);
         cliente.setEmail(email);
         cliente.setPassword(password);
 
@@ -167,5 +179,4 @@ public class ClientesBean {
         return "index";
 
     }
-
 }

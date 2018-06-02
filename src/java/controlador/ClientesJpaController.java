@@ -5,18 +5,27 @@
  */
 package controlador;
 
+import controlador.exceptions.IllegalOrphanException;
 import controlador.exceptions.NonexistentEntityException;
 import controlador.exceptions.PreexistingEntityException;
 import controlador.exceptions.RollbackFailureException;
 import entidad.Clientes;
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import entidad.Reservaciones;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
 /**
@@ -37,13 +46,32 @@ public class ClientesJpaController implements Serializable {
     }
 
     public void create(Clientes clientes) throws PreexistingEntityException, RollbackFailureException, Exception {
+        if (clientes.getReservacionesCollection() == null) {
+            clientes.setReservacionesCollection(new ArrayList<Reservaciones>());
+        }
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
+            Collection<Reservaciones> attachedReservacionesCollection = new ArrayList<Reservaciones>();
+            for (Reservaciones reservacionesCollectionReservacionesToAttach : clientes.getReservacionesCollection()) {
+                reservacionesCollectionReservacionesToAttach = em.getReference(reservacionesCollectionReservacionesToAttach.getClass(), reservacionesCollectionReservacionesToAttach.getReservacionesPK());
+                attachedReservacionesCollection.add(reservacionesCollectionReservacionesToAttach);
+            }
+            clientes.setReservacionesCollection(attachedReservacionesCollection);
             em.persist(clientes);
+            for (Reservaciones reservacionesCollectionReservaciones : clientes.getReservacionesCollection()) {
+                Clientes oldClientesOfReservacionesCollectionReservaciones = reservacionesCollectionReservaciones.getClientes();
+                reservacionesCollectionReservaciones.setClientes(clientes);
+                reservacionesCollectionReservaciones = em.merge(reservacionesCollectionReservaciones);
+                if (oldClientesOfReservacionesCollectionReservaciones != null) {
+                    oldClientesOfReservacionesCollectionReservaciones.getReservacionesCollection().remove(reservacionesCollectionReservaciones);
+                    oldClientesOfReservacionesCollectionReservaciones = em.merge(oldClientesOfReservacionesCollectionReservaciones);
+                }
+            }
             utx.commit();
         } catch (Exception ex) {
+            System.out.println(ex.getMessage());
             try {
                 utx.rollback();
             } catch (Exception re) {
@@ -60,12 +88,45 @@ public class ClientesJpaController implements Serializable {
         }
     }
 
-    public void edit(Clientes clientes) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public void edit(Clientes clientes) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
+            Clientes persistentClientes = em.find(Clientes.class, clientes.getIdcliente());
+            Collection<Reservaciones> reservacionesCollectionOld = persistentClientes.getReservacionesCollection();
+            Collection<Reservaciones> reservacionesCollectionNew = clientes.getReservacionesCollection();
+            List<String> illegalOrphanMessages = null;
+            for (Reservaciones reservacionesCollectionOldReservaciones : reservacionesCollectionOld) {
+                if (!reservacionesCollectionNew.contains(reservacionesCollectionOldReservaciones)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain Reservaciones " + reservacionesCollectionOldReservaciones + " since its clientes field is not nullable.");
+                }
+            }
+            if (illegalOrphanMessages != null) {
+                throw new IllegalOrphanException(illegalOrphanMessages);
+            }
+            Collection<Reservaciones> attachedReservacionesCollectionNew = new ArrayList<Reservaciones>();
+            for (Reservaciones reservacionesCollectionNewReservacionesToAttach : reservacionesCollectionNew) {
+                reservacionesCollectionNewReservacionesToAttach = em.getReference(reservacionesCollectionNewReservacionesToAttach.getClass(), reservacionesCollectionNewReservacionesToAttach.getReservacionesPK());
+                attachedReservacionesCollectionNew.add(reservacionesCollectionNewReservacionesToAttach);
+            }
+            reservacionesCollectionNew = attachedReservacionesCollectionNew;
+            clientes.setReservacionesCollection(reservacionesCollectionNew);
             clientes = em.merge(clientes);
+            for (Reservaciones reservacionesCollectionNewReservaciones : reservacionesCollectionNew) {
+                if (!reservacionesCollectionOld.contains(reservacionesCollectionNewReservaciones)) {
+                    Clientes oldClientesOfReservacionesCollectionNewReservaciones = reservacionesCollectionNewReservaciones.getClientes();
+                    reservacionesCollectionNewReservaciones.setClientes(clientes);
+                    reservacionesCollectionNewReservaciones = em.merge(reservacionesCollectionNewReservaciones);
+                    if (oldClientesOfReservacionesCollectionNewReservaciones != null && !oldClientesOfReservacionesCollectionNewReservaciones.equals(clientes)) {
+                        oldClientesOfReservacionesCollectionNewReservaciones.getReservacionesCollection().remove(reservacionesCollectionNewReservaciones);
+                        oldClientesOfReservacionesCollectionNewReservaciones = em.merge(oldClientesOfReservacionesCollectionNewReservaciones);
+                    }
+                }
+            }
             utx.commit();
         } catch (Exception ex) {
             try {
@@ -88,7 +149,7 @@ public class ClientesJpaController implements Serializable {
         }
     }
 
-    public void destroy(Integer id) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
@@ -99,6 +160,17 @@ public class ClientesJpaController implements Serializable {
                 clientes.getIdcliente();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The clientes with id " + id + " no longer exists.", enfe);
+            }
+            List<String> illegalOrphanMessages = null;
+            Collection<Reservaciones> reservacionesCollectionOrphanCheck = clientes.getReservacionesCollection();
+            for (Reservaciones reservacionesCollectionOrphanCheckReservaciones : reservacionesCollectionOrphanCheck) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("This Clientes (" + clientes + ") cannot be destroyed since the Reservaciones " + reservacionesCollectionOrphanCheckReservaciones + " in its reservacionesCollection field has a non-nullable clientes field.");
+            }
+            if (illegalOrphanMessages != null) {
+                throw new IllegalOrphanException(illegalOrphanMessages);
             }
             em.remove(clientes);
             utx.commit();
@@ -161,5 +233,5 @@ public class ClientesJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

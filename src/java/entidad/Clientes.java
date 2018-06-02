@@ -6,16 +6,20 @@
 package entidad;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,52 +34,44 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Clientes.findByNombre", query = "SELECT c FROM Clientes c WHERE c.nombre = :nombre")
     , @NamedQuery(name = "Clientes.findByApellidoPaterno", query = "SELECT c FROM Clientes c WHERE c.apellidoPaterno = :apellidoPaterno")
     , @NamedQuery(name = "Clientes.findByApellidoMaterno", query = "SELECT c FROM Clientes c WHERE c.apellidoMaterno = :apellidoMaterno")
+    , @NamedQuery(name = "Clientes.findByTel", query = "SELECT c FROM Clientes c WHERE c.tel = :tel")
     , @NamedQuery(name = "Clientes.findByEdad", query = "SELECT c FROM Clientes c WHERE c.edad = :edad")
-    , @NamedQuery(name = "Clientes.findByCiudad", query = "SELECT c FROM Clientes c WHERE c.ciudad = :ciudad")
+    , @NamedQuery(name = "Clientes.findByGenero", query = "SELECT c FROM Clientes c WHERE c.genero = :genero")
     , @NamedQuery(name = "Clientes.findByEmail", query = "SELECT c FROM Clientes c WHERE c.email = :email")
     , @NamedQuery(name = "Clientes.findByPassword", query = "SELECT c FROM Clientes c WHERE c.password = :password")})
 public class Clientes implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientes")
+    private Collection<Reservaciones> reservacionesCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "idcliente")
+    @Column(name = "IDCLIENTE")
     private Integer idcliente;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "nombre")
+    @Size(max = 45)
+    @Column(name = "NOMBRE")
     private String nombre;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "apellido_paterno")
+    @Size(max = 45)
+    @Column(name = "APELLIDO_PATERNO")
     private String apellidoPaterno;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "apellido_materno")
+    @Size(max = 45)
+    @Column(name = "APELLIDO_MATERNO")
     private String apellidoMaterno;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "edad")
-    private int edad;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "ciudad")
-    private String ciudad;
+    @Size(max = 10)
+    @Column(name = "TEL")
+    private String tel;
+    @Column(name = "EDAD")
+    private Integer edad;
+    @Column(name = "GENERO")
+    private Character genero;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "email")
+    @Size(max = 45)
+    @Column(name = "EMAIL")
     private String email;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 8)
-    @Column(name = "password")
+    @Size(max = 8)
+    @Column(name = "PASSWORD")
     private String password;
 
     public Clientes() {
@@ -83,17 +79,6 @@ public class Clientes implements Serializable {
 
     public Clientes(Integer idcliente) {
         this.idcliente = idcliente;
-    }
-
-    public Clientes(Integer idcliente, String nombre, String apellidoPaterno, String apellidoMaterno, int edad, String ciudad, String email, String password) {
-        this.idcliente = idcliente;
-        this.nombre = nombre;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.edad = edad;
-        this.ciudad = ciudad;
-        this.email = email;
-        this.password = password;
     }
 
     public Integer getIdcliente() {
@@ -128,20 +113,28 @@ public class Clientes implements Serializable {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-    public int getEdad() {
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public Integer getEdad() {
         return edad;
     }
 
-    public void setEdad(int edad) {
+    public void setEdad(Integer edad) {
         this.edad = edad;
     }
 
-    public String getCiudad() {
-        return ciudad;
+    public Character getGenero() {
+        return genero;
     }
 
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
+    public void setGenero(Character genero) {
+        this.genero = genero;
     }
 
     public String getEmail() {
@@ -183,6 +176,15 @@ public class Clientes implements Serializable {
     @Override
     public String toString() {
         return "entidad.Clientes[ idcliente=" + idcliente + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Reservaciones> getReservacionesCollection() {
+        return reservacionesCollection;
+    }
+
+    public void setReservacionesCollection(Collection<Reservaciones> reservacionesCollection) {
+        this.reservacionesCollection = reservacionesCollection;
     }
     
 }
