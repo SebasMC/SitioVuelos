@@ -19,9 +19,7 @@ public class ListQuery extends DBConnect implements Serializable {
     public List<Vuelos_disponibles> listVuelos() {
         List<Vuelos_disponibles> list = new ArrayList<>();
         try {
-            ps = connect().prepareStatement("select v.IDVUELO, d.CIUDAD, v.FECHA, v.PRECIO, v.HORARIO\n"
-                    + "from vuelos v , destino d\n"
-                    + "where  v.DESTINO_IDDESTINO = d.IDDESTINO;");
+            ps = connect().prepareStatement("select v.IDVUELO, d.CIUDAD, v.FECHA, v.PRECIO, v.HORARIO from vuelos v , destino d where  v.DESTINO_IDDESTINO = d.IDDESTINO");
             Vuelos_disponibles v;
             rs = ps.executeQuery();
             while (rs.next()) {

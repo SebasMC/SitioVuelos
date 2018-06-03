@@ -17,23 +17,33 @@ import modelo.Vuelos_disponibles;
  *
  * @author Jonh
  */
-
-@ManagedBean (name="main")
+@ManagedBean(name = "main")
 @SessionScoped
 public class execute_mostrar_vuelos implements Serializable {
-    
-    private Vuelos_disponibles vuelos_disponibles = new Vuelos_disponibles();
-    ListQuery query = new ListQuery();
-   private List<Vuelos_disponibles> list = new ArrayList<Vuelos_disponibles>();
 
+//    private Vuelos_disponibles vuelos_disponibles = new Vuelos_disponibles();
+//    ListQuery query = new ListQuery();
+//   private List<Vuelos_disponibles> list = new ArrayList<Vuelos_disponibles>();
+//
+//
+//    public List<Vuelos_disponibles> getList() {
+//        return list;
+//    }
+//
+//    public void setList(List<Vuelos_disponibles> list) {
+//        this.list = list;
+//    }
+//    
+    ListQuery query = new ListQuery();
+    private List<Vuelos_disponibles> list = new ArrayList<Vuelos_disponibles>();
 
     public List<Vuelos_disponibles> getList() {
+        list = query.listVuelos();
         return list;
     }
 
     public void setList(List<Vuelos_disponibles> list) {
         this.list = list;
     }
-    
-    
+
 }
