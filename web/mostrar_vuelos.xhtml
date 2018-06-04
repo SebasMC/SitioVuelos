@@ -14,17 +14,24 @@
                 <ui:include src="/template/header.xhtml"/>
             </ui:define>
             <ui:define name="content">
-         
-                <h:dataTable value="#{main.list}" var="v" bgcolor="white" border="3">
+                <div>
+                    <div align="center">
+                         <h:dataTable value="#{main.list}" var="v"   cellpadding="4" cellspacing="5" style="color:rgb(96,125,139); font-size: 20px; align-content: center;">
                     <h:column>
-                        <f:facet name="header"> Id Vuelo</f:facet>
+                        <f:facet name="header">Vuelo</f:facet>
                         #{v.idvuelo}
                     </h:column>
                 
-                   <!--  <h:column>
+                    <h:column>
                         <f:facet name="header"> Ciudad</f:facet>
-                        #{v.CIUDAD}
-                    </h:column> -->
+                        #{v.ciudad}
+                    </h:column> 
+                    
+                       <h:column>
+                        <f:facet name="header"> Aeropuerto</f:facet>
+                        #{v.aerolinea}
+                    </h:column> 
+                    
                      <h:column>
                         <f:facet name="header">Fecha</f:facet>
                         #{v.fecha}
@@ -37,7 +44,14 @@
                         <f:facet name="header">Horario</f:facet>
                         #{v.horario}
                     </h:column>
+                             <h:column>
+                                 <f:facet name="header">Compañia</f:facet>
+                                 #{v.nombre_compania}
+                             </h:column>
                 </h:dataTable>
+                    </div>
+                </div>
+               
             </ui:define>
         </ui:composition>
     </h:body>

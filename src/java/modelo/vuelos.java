@@ -11,11 +11,23 @@ import java.io.Serializable;
  *
  * @author Jonh
  */
-public class vuelos implements Serializable{
+public class vuelos implements Serializable {
+
     private int idvuelo;
     private String fecha;
-    private int horario;
+    private String horario;
     private int precio;
+    private String ciudad;
+    private String aerolinea;
+    private String nombre_compania;
+
+    public String getNombre_compania() {
+        return nombre_compania;
+    }
+
+    public void setNombre_compania(String nombre_compania) {
+        this.nombre_compania = nombre_compania;
+    }
 
     public int getIdvuelo() {
         return idvuelo;
@@ -33,11 +45,11 @@ public class vuelos implements Serializable{
         this.fecha = fecha;
     }
 
-    public int getHorario() {
+    public String getHorario() {
         return horario;
     }
 
-    public void setHorario(int horario) {
+    public void setHorario(String horario) {
         this.horario = horario;
     }
 
@@ -48,6 +60,22 @@ public class vuelos implements Serializable{
     public void setPrecio(int precio) {
         this.precio = precio;
     }
-    
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public String getAerolinea() {
+        return aerolinea;
+    }
+
+    public void setAerolinea(String aerolinea) {
+        this.aerolinea = aerolinea;
+    }
+
     
 }
