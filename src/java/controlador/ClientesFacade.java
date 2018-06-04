@@ -24,7 +24,6 @@ import org.jboss.weld.bean.builtin.ee.UserTransactionBean;
 @Stateless
 public class ClientesFacade {
 
-    //creacion de entities
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProyectoVueloPU");
     EntityManager em = emf.createEntityManager();
     @Resource
