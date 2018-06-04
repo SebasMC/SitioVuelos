@@ -5,10 +5,10 @@
  */
 package com.database.connect;
 
-import modelo.Vuelos_disponibles;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import modelo.vuelos;
 
 /**
  *
@@ -16,26 +16,25 @@ import java.util.List;
  */
 public class ListQuery extends DBConnect implements Serializable {
 
-    public List<Vuelos_disponibles> listVuelos() {
-        List<Vuelos_disponibles> list = new ArrayList<>();
+    public List<vuelos> listVuelos() {
+        List<vuelos> list = new ArrayList<vuelos>();
         try {
-            ps = connect().prepareStatement("select v.IDVUELO, d.CIUDAD, v.FECHA, v.PRECIO, v.HORARIO from vuelos v , destino d where  v.DESTINO_IDDESTINO = d.IDDESTINO");
-            Vuelos_disponibles v;
+            ps = connect().prepareStatement("select IDVUELO,FECHA,PRECIO,HORARIO FROM vuelos");
+            vuelos v;
             rs = ps.executeQuery();
             while (rs.next()) {
-                v = new Vuelos_disponibles();
-                v.setIDVUELO(rs.getInt("IDVUELO"));
-                v.setCIUDAD(rs.getNString("CIUDAD"));
-                v.setFECHA(rs.getNString("FECHA"));
-                v.setHORARIO(rs.getInt("HORA"));
-                v.setPRECIO(rs.getInt("PRECIO"));
+                v = new vuelos();
+                v.setIdvuelo(rs.getInt("IDVUELO"));
+                v.setFecha(rs.getString("FECHA"));
+                v.setPrecio(rs.getInt("PRECIO"));
+                v.setHorario(rs.getInt("HORARIO"));
                 list.add(v);
-                
             }
             return list;
         } catch (Exception e) {
+            return null;
         }
-        return null;
 
     }
+
 }
