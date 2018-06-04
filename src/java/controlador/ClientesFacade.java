@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.naming.InitialContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
@@ -24,10 +25,11 @@ import org.jboss.weld.bean.builtin.ee.UserTransactionBean;
 public class ClientesFacade {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProyectoVueloPU");
+    EntityManager em = emf.createEntityManager();
     @Resource
-    private UserTransaction utx;
+    private UserTransaction etx = (UserTransaction) em.getTransaction();
 
-    private ClientesJpaController jpa = new ClientesJpaController(utx, emf);
+    private ClientesJpaController jpa = new ClientesJpaController(etx, emf);
 
     public ClientesFacade() {
     }

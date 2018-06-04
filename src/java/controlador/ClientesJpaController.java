@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
@@ -35,7 +36,7 @@ import javax.transaction.UserTransaction;
 public class ClientesJpaController implements Serializable {
 
     public ClientesJpaController(UserTransaction utx, EntityManagerFactory emf) {
-        this.utx = utx;
+        this.utx=utx;
         this.emf = emf;
     }
     private UserTransaction utx = null;
