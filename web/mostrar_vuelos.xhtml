@@ -15,43 +15,81 @@
             </ui:define>
             <ui:define name="content">
                 <div>
+
+                    <div style="  
+
+                         width: 100%;
+                         height: 400px;
+                         position: relative;
+                         background-image: url(../resources/img/7.jpg);
+                         background-size: 100%;             
+                         ">
+                        <h1 align="center" style="font-family: sans-serif; font-size: 100px; color: white;">Vuelos disponibles</h1>
+                        <br/>
+                        <p style="color:whitesmoke;  font-family: fantasy; font-size: 40px;">Vuelos desde $200 MXN.</p>
+
+                        <p align="center" style=" color:whitesmoke;  font-family: fantasy; font-size: 30px;">Viaja con Aeromexico</p>
+                        <p align="center" style="color:whitesmoke;  font-family: fantasy; font-size: 30px;">Viaja con Volaris</p>
+
+                    </div>
+
+
                     <div align="center">
-                         <h:dataTable value="#{main.list}" var="v"   cellpadding="4" cellspacing="5" style="color:rgb(96,125,139); font-size: 20px; align-content: center;">
-                    <h:column>
-                        <f:facet name="header">Vuelo</f:facet>
-                        #{v.idvuelo}
-                    </h:column>
-                
-                    <h:column>
-                        <f:facet name="header"> Ciudad</f:facet>
-                        #{v.ciudad}
-                    </h:column> 
-                    
-                       <h:column>
-                        <f:facet name="header"> Aeropuerto</f:facet>
-                        #{v.aerolinea}
-                    </h:column> 
-                    
-                     <h:column>
-                        <f:facet name="header">Fecha</f:facet>
-                        #{v.fecha}
-                    </h:column>
-                     <h:column>
-                        <f:facet name="header"> Precio</f:facet>
-                       $ #{v.precio}
-                    </h:column>
-                     <h:column>
-                        <f:facet name="header">Horario</f:facet>
-                        #{v.horario}
-                    </h:column>
-                             <h:column>
-                                 <f:facet name="header">Compañia</f:facet>
-                                 #{v.nombre_compania}
-                             </h:column>
-                </h:dataTable>
+                        <h:dataTable value="#{main.list}" var="v"   cellpadding="4" cellspacing="5" style="color:rgb(96,125,139); font-size: 20px; align-content: center;">
+                            <h:column>
+                                <f:facet name="header">Vuelo</f:facet>
+                                    #{v.idvuelo}
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header"> Ciudad</f:facet>
+                                    #{v.ciudad}
+                            </h:column> 
+
+                            <h:column>
+                                <f:facet name="header"> Aeropuerto</f:facet>
+                                    #{v.aerolinea}
+                            </h:column> 
+
+                            <h:column>
+                                <f:facet name="header">Fecha</f:facet>
+                                    #{v.fecha}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header"> Precio</f:facet>
+                                $ #{v.precio}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Horario</f:facet>
+                                    #{v.horario}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Compañia</f:facet>
+                                    #{v.nombre_compania}
+                            </h:column>
+                        </h:dataTable>
+                    </div>
+                    <div style="  
+
+                         width: 100%;
+                         height: 400px;
+                         position: relative;
+                         background-image: url(../resources/img/6.jpg);
+                         background-size: 100%;             
+                         " >
+
+                    </div>
+                    <div style="  
+
+                         width: 100%;
+                         height: 400px;
+                         position: relative;
+                         background-image: url(../resources/img/3.jpg);
+                         background-size: 100%;             
+                         " >
+
                     </div>
                 </div>
-               
             </ui:define>
         </ui:composition>
     </h:body>

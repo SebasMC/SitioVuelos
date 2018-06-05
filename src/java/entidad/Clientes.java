@@ -77,7 +77,22 @@ public class Clientes implements Serializable {
     public Clientes() {
     }
 
-    public Clientes(String nombre, String apellidoPaterno, String apellidoMaterno, String tel, Integer edad, Character genero, String email, String password) {
+    public Clientes(String nombre, String apellidoPaterno, String apellidoMaterno, String tel, Integer edad, Character genero, String email, String password, Collection<Reservaciones> reservacionesCollection) {
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.tel = tel;
+        this.edad = edad;
+        this.genero = genero;
+        this.email = email;
+        this.password = password;
+        this.reservacionesCollection = reservacionesCollection;
+    }
+    
+    
+
+    public Clientes(Integer idcliente, String nombre, String apellidoPaterno, String apellidoMaterno, String tel, Integer edad, Character genero, String email, String password) {
+        this.idcliente = idcliente;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
