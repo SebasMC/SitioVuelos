@@ -110,20 +110,12 @@ public class ClientesBean {
         this.tel = tel;
     }
 
-    public String insertar() {
+    public void insertar() {
         Clientes cliente = new Clientes(idcliente, nombre, apellido_paterno, apellido_materno, tel, edad, gen, email, password);
         try {
-            if (cfacade.buscarUsuario(email) != null) {
                 cfacade.crearCl(cliente);
-                return "index";
-            } else {
-                FacesContext fc = FacesContext.getCurrentInstance();
-                fc.addMessage("", new FacesMessage("Usuario ya existente!!!"));
-                return null;
-            }
         } catch (Exception ex) {
             Logger.getLogger(ClientesBean.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
         }
     }
 

@@ -34,20 +34,18 @@ public class ClientesFacade {
     }
 
     public void crearCl(Clientes cliente){
-
         try {
             jpa.create(cliente);
         } catch (Exception ex) {
             Logger.getLogger(ClientesFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
     
-    public Clientes buscarUsuario(String email){
-        Clientes buscacliente;
-        buscacliente = jpa.findClientes(email);
-        
-        return buscacliente;
-    }
+//    public Clientes buscarUsuario(String email){
+//        Clientes buscacliente;
+//        buscacliente = jpa.findClientes(email);
+//        
+//        return buscacliente;
+//    }
 
 }

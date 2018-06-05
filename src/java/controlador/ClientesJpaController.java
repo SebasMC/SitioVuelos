@@ -197,14 +197,14 @@ public class ClientesJpaController implements Serializable {
         }
     }
 
-    public Clientes findClientes(String email) {
-        EntityManager em = getEntityManager();
-        try {
-            return em.find(Clientes.class, email);
-        } finally {
-            em.close();
-        }
-    }
+//    public Clientes findClientes(String email) {
+//        EntityManager em = getEntityManager();
+//        try {
+//            return em.find(Clientes.class, email);
+//        } finally {
+//            em.close();
+//        }
+//    }
 
     public int getClientesCount() {
         EntityManager em = getEntityManager();
