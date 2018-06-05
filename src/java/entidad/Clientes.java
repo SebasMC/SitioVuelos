@@ -11,12 +11,13 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -41,13 +42,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Clientes.findByPassword", query = "SELECT c FROM Clientes c WHERE c.password = :password")})
 public class Clientes implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientes")
-    private Collection<Reservaciones> reservacionesCollection;
-
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "IDCLIENTE")
     private Integer idcliente;
     @Size(max = 45)
@@ -73,8 +71,21 @@ public class Clientes implements Serializable {
     @Size(max = 8)
     @Column(name = "PASSWORD")
     private String password;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientes")
+    private Collection<Reservaciones> reservacionesCollection;
 
     public Clientes() {
+    }
+
+    public Clientes(String nombre, String apellidoPaterno, String apellidoMaterno, String tel, Integer edad, Character genero, String email, String password) {
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.tel = tel;
+        this.edad = edad;
+        this.genero = genero;
+        this.email = email;
+        this.password = password;
     }
 
     public Clientes(Integer idcliente) {
@@ -153,6 +164,15 @@ public class Clientes implements Serializable {
         this.password = password;
     }
 
+    @XmlTransient
+    public Collection<Reservaciones> getReservacionesCollection() {
+        return reservacionesCollection;
+    }
+
+    public void setReservacionesCollection(Collection<Reservaciones> reservacionesCollection) {
+        this.reservacionesCollection = reservacionesCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -176,15 +196,6 @@ public class Clientes implements Serializable {
     @Override
     public String toString() {
         return "entidad.Clientes[ idcliente=" + idcliente + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Reservaciones> getReservacionesCollection() {
-        return reservacionesCollection;
-    }
-
-    public void setReservacionesCollection(Collection<Reservaciones> reservacionesCollection) {
-        this.reservacionesCollection = reservacionesCollection;
     }
     
 }

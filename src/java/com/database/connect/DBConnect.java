@@ -23,9 +23,9 @@ import java.util.logging.Logger;
  */
 public class DBConnect implements Serializable {
 
-    private final String db_url = "jdbc:mysql://localhost:13306/proyecto_vuelo";
+    private final String db_url = "jdbc:mysql://localhost:3306/proyecto_vuelo";
     private final String db_username = "root";
-    private final String db_password = "root";
+    private final String db_password = "";
 
     private Connection connection = null;
     protected PreparedStatement ps = null;
