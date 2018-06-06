@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="ProyectoVueloPU" transaction-type="JTA">
     <jta-data-source>java:app/vuelos</jta-data-source>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties/>
+    <class>entidad.Clientes</class>
+    <class>entidad.Compania</class>
+    <class>entidad.Destino</class>
+    <class>entidad.Origen</class>
+    <class>entidad.Reservaciones</class>
+    <class>entidad.ReservacionesPK</class>
+    <class>entidad.Vuelos</class>
+    <properties>
+        <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/proyecto_vuelo?zeroDateTimeBehavior=convertToNull [root on Default schema]"/>
+        <property name="javax.persistence.jdbc.user" value="root"/>
+        <property name="javax.persistence.jdbc.Driver" value="com.mysql.jdbc.Driver"/>
+        <property name="javax.persistence.jdbc.password" value=""/>
+    </properties>
   </persistence-unit>
 </persistence>

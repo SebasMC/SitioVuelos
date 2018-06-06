@@ -7,11 +7,13 @@ package modelo;
 
 import controlador.ClientesFacade;
 import entidad.Clientes;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
@@ -22,7 +24,7 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 public class ClientesBean {
 
-    private Integer idcliente = null;
+    private Integer idcliente;
     private String nombre;
     private String apellido_paterno;
     private String apellido_materno;
@@ -31,9 +33,11 @@ public class ClientesBean {
     private Character gen;
     private String email;
     private String password;
-    //private Clientes cliente;
+    private Clientes cliente;
     private ClientesFacade cfacade = new ClientesFacade();
-    private boolean band;
+    private boolean band = false;
+    private FacesContext fc = FacesContext.getCurrentInstance();
+    private ExternalContext ec = fc.getExternalContext();
 
     public ClientesBean() {
     }
@@ -110,13 +114,61 @@ public class ClientesBean {
         this.tel = tel;
     }
 
+    public boolean isBand() {
+        return band;
+    }
+
+    public void setBand(boolean band) {
+        this.band = band;
+    }
+
     public void insertar() {
-        Clientes cliente = new Clientes(idcliente, nombre, apellido_paterno, apellido_materno, tel, edad, gen, email, password);
+        Clientes cliente = new Clientes(null, nombre, apellido_paterno, apellido_materno, tel, edad, gen, email, password);
         try {
-                cfacade.crearCl(cliente);
+            cfacade.crearCl(cliente);
         } catch (Exception ex) {
             Logger.getLogger(ClientesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    public void verificarSesion() {
+        if (band != true) {
+            try {
+                ec.redirect(ec.getRequestContextPath() + "/faces/login.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(ClientesBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public void iniciarSesion() {
+        cliente = cfacade.buscarCliente(idcliente);
+
+        if (cliente != null) {
+            if (cliente.getPassword().equals(this.password)) {
+                this.band = true;
+                String parameter = "?num=" + idcliente + "&pass=" + band;
+                {
+                    try {
+                        ec.redirect(ec.getRequestContextPath() + "/faces/vuelos.xhtml" + parameter);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ClientesBean.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            } else {
+                fc.addMessage("", new FacesMessage("Contraseña incorrecta!!!"));
+            }
+        } else {
+            fc.addMessage("", new FacesMessage("Usuario no registrado"));
+        }
+    }
+
+    public void logout() throws IOException {
+        this.band = false;
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Te has desconectado", "Debes iniciar sesión nuevamente"));
+        ec.getFlash().setKeepMessages(true);
+        
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        ec.redirect(ec.getRequestContextPath()+"/faces/index.xhtml");
+    }
 }

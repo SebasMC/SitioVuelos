@@ -41,11 +41,11 @@ public class ClientesFacade {
         }
     }
 
-//    public Clientes buscarUsuario(String email, String password) {
-//        Clientes buscacliente;
-//        buscacliente = jpa.findClientes(email, password);
-//
-//        return buscacliente;
-//    }
+    public Clientes buscarCliente(Integer id) {
+        Clientes busca;
+        busca = jpa.findClientes(id);
+        
+        return busca;
+    }
 
 }
