@@ -69,6 +69,27 @@
                             </h:column>
                         </h:dataTable>
                     </div>
+                    <div >
+                            <h:form>
+                            <h:panelGrid columns="2"  cellpadding="2" cellspacing="1" width="600">
+
+                                <p style="font-size: 100%;">ID Reservacion</p>
+                                <h:inputText style="height: 20px;  width: 100%;" value="#{reservacion.idreservacion}"/>
+                                <p style="font-size: 100%;">ID Vuelo</p>
+                                <h:inputText style="height: 20px; width: 100%;" value="#{reservacion.vuelos_idvuelos}"/>
+                                <p style="font-size: 100%;">ID Cliente</p>
+                                <h:inputText style="height: 20px; width: 100%;" value="#{reservacion.clientes_idclientes}"/>
+                                
+                            </h:panelGrid>
+                            <h:panelGroup>
+                                <h:commandButton style="background-color: #154360; color: white; border: white solid; width: 300px; height: 40px;" value="Reservar" action="#{reservacion.insertar()}"/>
+                                <h:commandButton style="background-color: #154360; color: white; border: white solid; width: 300px; height: 40px;" value="Cancelar" action="Login.xhtml"/>
+                       
+                            </h:panelGroup>
+                            <br></br>
+                            <br></br>
+                            </h:form>
+                    </div>
                     <div style="  
 
                          width: 100%;
