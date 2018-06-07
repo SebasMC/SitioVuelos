@@ -12,8 +12,8 @@
         </f:metadata>
     </f:view>
     <h:head>
-        <title>Facelet Title</title>
-
+        <title>Vuelos</title>
+<h:outputStylesheet library = "css" name = "styles_tables.css"  /> 
     </h:head>
     <h:body>
 
@@ -43,7 +43,7 @@
 
 
                     <div align="center">
-                        <h:dataTable value="#{main.list}" var="v"   cellpadding="4" cellspacing="5" style="color:rgb(96,125,139); font-size: 20px; align-content: center;">
+                        <h:dataTable value="#{main.list}" var="v"   styleClass = "tabla_data" headerClass = "tablaTableHeader"  rowClasses = "tablaTableOddRow,tablaTableEvenRow"   cellpadding="4" cellspacing="5" style="color:rgb(96,125,139); font-size: 20px; align-content: center;">
                             <h:column>
                                 <f:facet name="header">Vuelo</f:facet>
                                     #{v.idvuelo}

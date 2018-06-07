@@ -1,0 +1,34 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 7/06/2018, 01:31:45 AM
+    Author     : Jonh
+*/
+
+.tabla_data {   
+   border-collapse:collapse;
+   font-family: serif;
+   font-size: 20px;
+   
+}
+
+.tablaTableHeader {
+   text-align:center;
+   background:none repeat scroll 0 0 #85C1E9  ;
+     color: white;
+   padding:5px;
+}
+
+.tablaTableOddRow {
+   text-align:center;	
+   color: #3498DB  ;
+}
+
+.tablaTableEvenRow {
+   text-align:center;
+   color:  #1A5276    ;
+ 
+}

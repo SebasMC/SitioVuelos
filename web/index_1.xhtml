@@ -5,11 +5,14 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
+        <h:outputStylesheet library = "css" name = "styles_tables.css"  /> 	
     </h:head>
     <h:body>
      <div>
             
-         <h:dataTable value="#{main_RES.list}" var="r" width="1100"   cellspacing="3" cellpadding="5" style="color: cadetblue; font-size: 20px;">
+         <h:dataTable value="#{main_RES.list}" var="r" width="1100"   cellspacing="3" cellpadding="5"    styleClass = "tabla_data"
+            headerClass = "tablaTableHeader"
+            rowClasses = "tablaTableOddRow,tablaTableEvenRow">>
             <h:column>
                 <f:facet name="header">Id reservacion</f:facet>
                     #{r.idRESERVACION}

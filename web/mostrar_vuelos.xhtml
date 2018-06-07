@@ -5,12 +5,13 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
-        <title>Facelet Title</title>
+        <title>Vuelos</title>
+        <h:outputStylesheet library = "css" name = "styles_tables.css"  /> 	
     </h:head>
     <h:body>
         <div>
-            <div align="center" style="font-family: sans-serif; font-size: 30px; background: darkslategrey; ">
-                <h:dataTable value="#{main.list}" var="v" width="700" style="color: white"  cellspacing="3" cellpadding="5">
+            <div align="center">
+                <h:dataTable value="#{main.list}" var="v" width="700"  styleClass = "tabla_data" headerClass = "tablaTableHeader"  rowClasses = "tablaTableOddRow,tablaTableEvenRow"  cellspacing="3" cellpadding="5">
             <h:column>
                 <f:facet name="header">Id Vuelo</f:facet>
                     #{v.idvuelo}
