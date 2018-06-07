@@ -2,19 +2,123 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Inicio</title>
     </h:head>
     <h:body>
         <ui:composition template="/template/template_vuelos1.1.xhtml">
             <ui:define name="content">
-                <div>Usuario registrado exitosamente!!!</div>
-                <div>jonathan del villar</div>
-                <div> Zepeda Martinez Jose Luis </div>
+                
+               <h:graphicImage  height="386" width="1326"
+   value = "resources/img/avion.gif">
+                     <div align="center" style="background: #036fab">
+               
+                </div>
+                 </h:graphicImage>
+                <div align="center" style="background: #036fab">
                     
-                <div>ERIK BALCAZAR</div>
-                <div>asdasdsad</div>
+                <h1 align="center">Vuelos desde la ciudad de Mexico</h1>
+                
+                <h:form >
+                    
+                    <table border="0" width="95%" height="auto">
+                        <tr>
+                     <td><center><h:graphicImage value="resources/img/1.png" /> </center></td>
+                    <td><center><h:graphicImage value="resources/img/2.png" /> </center></td>
+                    <td><center><h:graphicImage value="resources/img/3.png" /></center></td>
+                    <td><center><h:graphicImage value="resources/img/4.png" /> </center></td>
+                    </tr>
+                        <tr>
+                            <td><center><h5 id="letra1">Vuelos a Guadalajara</h5></center></td>
+                            <td><center><h5 id="letra1">Vuelos a Quintana Roo</h5></center></td>
+                            <td><center><h5 id="letra1">Vuelos a Monterrey</h5></center></td>
+                            <td><center><h5 id="letra1">Vuelos a Mazatlan</h5></center></td>
+                        </tr>
+                        <tr>
+                            <td><center><h6 id="letra2">Vuelos sencillos desde $ 1326 MXN</h6></center></td>
+                            <td><center><h6 id="letra2">Vuelos sencillos desde $ 1372 MXN</h6></center></td>
+                            <td><center><h6 id="letra2">Vuelo sencillo desde $ 1322 MXN</h6></center></td>
+                            <td><center><h6 id="letra2">Vuelo sencillo desde $ 1099 MXN</h6></center></td>
+                        </tr>
+                        <tr>
+                            <td><center><h:commandButton value="COMPRAR"/></center></td>
+                            <td><center><h:commandButton value="COMPRAR"/></center></td>
+                            <td><center><h:commandButton value="COMPRAR"/></center></td>
+                            <td><center><h:commandButton value="COMPRAR"/></center></td>
+                        </tr>
+                    </table>
+                    
+                </h:form>
+                <hr></hr>
+                </div>
+                
+                <div align="center" style="background: #5858FA">
+                    <table border="0" width="95%" height="auto">
+                        <tr>
+                            <td><h:graphicImage 
+                value = "resources/img/5.jpg"/> </td>
+                            <td id="letra3"> Dejate Enamorar por la magia de este destino</td>
+                            <td> <h:graphicImage
+                value = "resources/img/6.png"/> </td>
+                        <td id="letra3"> 6 Lugares Turisticos de debes conocer </td>
+                        
+                        </tr>
+               
+                    </table>
+                </div>
+                    <hr></hr>
+                    
+                    <h:form >
+                    <table border="0" width="95%" height="auto">
+                        <tr >
+                            <td ><h:graphicImage height="296" width="356"
+                          value = "resources/img/9.gif"/> </td>
+                            
+                            <td style="background: #E0E0F8"><center><h5 id="letra1">8 consejos para viajar con mascotas</h5></center>
+                                <table border="0" width="95%" height="auto">
+                                <tr>
+                                    <td ><a href="https://www.interjet.com/es-mx/planea-tu-vuelo/prepara-tu-vuelo/mascotas"><center><h:graphicImage height="296" width="356"
+                          value = "resources/img/11.jpg"/></center></a> </td>
+                                </tr> 
+                               </table>
+                            </td>
+                        
+                        </tr>
+                        <tr>
+                            <td style=""><h5 id="letra1">Tus próximas vacaciones merecen un Gran Plan</h5></td>
+                     
+                            
+                            
+                        </tr>
+                        <tr>
+                            <td><h:commandButton value="CONOCE MAS "/></td>
+                        </tr>
+                        <tr> 
+                            <td ><h:graphicImage height="296" width="356" value = "resources/img/8.gif"/></td>
+                            
+                        <td style="background: #E0E0F8"><center><h5 id="letra1">Haz un recorrido por los mejores lugares turísticos de Oaxaca</h5></center>
+                        <table border="0" width="95%" height="auto">
+                                <tr>
+                                    <td ><center><h:graphicImage height="296" width="356"
+                          value = "resources/img/12.jpg"/></center> </td>
+                                </tr>
+                               </table>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td style=""><h5 id="letra1">Es momento de emprender el gran viaje</h5></td>
+                           
+                           
+                        </tr>
+                        <tr>
+                            <td><h:commandButton value="CONOCE MAS "/></td>
+                            
+                        </tr>
+                    </table>
+                        </h:form>
+             
             </ui:define>
         </ui:composition>
     </h:body>
