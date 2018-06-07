@@ -18,10 +18,10 @@
                         <h1 style="color:  #154360; font-family: sans-serif; font-size: 20px;">Inicio de sesión de usuarios</h1>
                         <h:form>
                             <h:panelGrid columns="2" cellspacing="5px">
-                                <p style="font-size: 20px;">Id de usuario: </p>
+                                <p style="font-size: 19px;">Id de usuario: </p>
                                 <h:inputText style="height: 20px;" value="#{clientes.idcliente}"/>
                                 <p style="font-size: 20px;">Contraseña:</p>
-                                <h:inputText style="height: 20px;" value="#{clientes.password}"/>
+                                <h:inputSecret maxlength="8" style="height: 20px;" value="#{clientes.password}"/>
                             </h:panelGrid>
                             <h:panelGroup>
                                 <h:commandButton style="background-color: #154360; color: white; border: white solid; width: 300px; height: 40px;" value="Iniciar" action="#{clientes.iniciarSesion()}"/>

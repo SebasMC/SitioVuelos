@@ -28,17 +28,21 @@
                                 <p style="font-size: 100%;">Apellido Materno</p>
                                 <h:inputText style="height: 20px; width: 100%;" value="#{clientes.apellido_materno}"/>
                                 <p style="font-size: 100%;">Teléfono</p>
-                                <h:inputText style="height: 20px; width: 50%;" value="#{clientes.tel}"/>
+                                <h:inputText maxlength="10" style="height: 20px; width: 50%;" value="#{clientes.tel}"/>
                                 <p style="font-size: 100%;">Edad</p>
-                                <h:inputText style="height: 20px; width: 50%;" value="#{clientes.edad}"/>
+                                <h:inputText id="edad" maxlength="2" style="height: 20px; width: 50%;" value="#{clientes.edad}"/>
                                 <p style="font-size: 100%;">Genéro</p>
-                                <h:inputText style="height: 20px; width: 100%;" value="#{clientes.gen}"/>
+                                <h:selectOneMenu value="#{clientes.gen}">
+                                    <f:selectItem itemLabel="Maculino" itemValue="M"/>
+                                    <f:selectItem itemLabel="Femenino" itemValue="F"/>
+                                </h:selectOneMenu>
                                 <p style="font-size: 100%;">Correo electronico</p>
                                 <h:inputText style="height: 20px; width: 100%;" value="#{clientes.email}"/>
                                 <p style="font-size: 100%;">Contraseña</p>
-                                <h:inputText style="height: 20px; " value="#{clientes.password}"/>
+                                <h:inputSecret maxlength="8" style="height: 20px; " value="#{clientes.password}"/>
                                <!-- <p style="font-size: 100%;">Repite contraseña</p>
                                 <h:inputText style="height: 20px;"/> -->
+                               <h:message for="edad"/>
                             </h:panelGrid>
                             <h:panelGroup>
                                 <h:commandButton style="background-color: #154360; color: white; border: white solid; width: 300px; height: 40px;" value="Registrarse" action="#{clientes.insertar()}"/>
