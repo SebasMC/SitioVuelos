@@ -11,6 +11,8 @@ import entidad.Reservaciones;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -20,11 +22,14 @@ import javax.inject.Named;
 @Named(value = "reservacion")
 @RequestScoped
 public class ReservacionesBean {
+
     private Integer idreservacion;
-    private  Integer clientes_idclientes;
-    private  Integer vuelos_idvuelos;
-    
-    private  ReservacionesFacade rfacade = new ReservacionesFacade();
+    private Integer clientes_idclientes;
+    private Integer vuelos_idvuelos;
+    private FacesContext fc = FacesContext.getCurrentInstance();
+    private ExternalContext ec = fc.getExternalContext();
+
+    private ReservacionesFacade rfacade = new ReservacionesFacade();
 
     public Integer getIdreservacion() {
         return idreservacion;
@@ -49,11 +54,12 @@ public class ReservacionesBean {
     public void setVuelos_idvuelos(Integer vuelos_idvuelos) {
         this.vuelos_idvuelos = vuelos_idvuelos;
     }
-    
-       public void insertar() {
-       Reservaciones reservacion = new Reservaciones(idreservacion,clientes_idclientes,vuelos_idvuelos);
+
+    public void insertar() {
+        Reservaciones reservacion = new Reservaciones(idreservacion, clientes_idclientes, vuelos_idvuelos);
         try {
-                rfacade.crearReservacion(reservacion);
+            rfacade.crearReservacion(reservacion);
+             ec.redirect(ec.getRequestContextPath() + "/faces/index_1.xhtml");
         } catch (Exception ex) {
             Logger.getLogger(ClientesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
